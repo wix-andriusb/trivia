@@ -62,28 +62,32 @@ class Game(playerNames: Seq[String]) {
   def roll(roll: Int): Unit = {
     println(players.get(currentPlayer) + " is the current player")
     println("They have rolled a " + roll)
+
+    val getOutPrison = roll % 2 == 0
+    val free = if (inPenaltyBox(currentPlayer)) getOutPrison else true
+
     if (inPenaltyBox(currentPlayer)) {
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
         println(players.get(currentPlayer) + " is getting out of the penalty box")
-        places(currentPlayer) = places(currentPlayer) + roll
-        if (places(currentPlayer) > 11) places(currentPlayer) = places(currentPlayer) - 12
-        println(players.get(currentPlayer) + "'s new location is " + places(currentPlayer))
-        println("The category is " + currentCategory)
-        askQuestion
       }
       else {
         println(players.get(currentPlayer) + " is not getting out of the penalty box")
         isGettingOutOfPenaltyBox = false
       }
     }
-    else {
-      places(currentPlayer) = places(currentPlayer) + roll
-      if (places(currentPlayer) > 11) places(currentPlayer) = places(currentPlayer) - 12
-      println(players.get(currentPlayer) + "'s new location is " + places(currentPlayer))
-      println("The category is " + currentCategory)
+
+    if (!inPenaltyBox(currentPlayer) || isGettingOutOfPenaltyBox) {
+      changePlace(roll)
       askQuestion
     }
+  }
+
+  private def changePlace(roll: Int): Unit = {
+    places(currentPlayer) = places(currentPlayer) + roll
+    if (places(currentPlayer) > 11) places(currentPlayer) = places(currentPlayer) - 12
+    println(players.get(currentPlayer) + "'s new location is " + places(currentPlayer))
+    println("The category is " + currentCategory)
   }
 
   private def askQuestion: Unit = {
