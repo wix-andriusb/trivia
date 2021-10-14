@@ -2,16 +2,26 @@ package com.adaptionsoft.games.uglytrivia
 
 import java.util.{LinkedList, ArrayList}
 
+sealed trait Category
+object Category {
+  case object Pop extends Category
+  case object Science extends Category
+  case object Sports extends Category
+  case object Rock extends Category
+}
+
 
 class Game {
   var players: ArrayList[String] = new ArrayList[String]
   var places: Array[Int] = new Array[Int](6)
   var purses: Array[Int] = new Array[Int](6)
   var inPenaltyBox: Array[Boolean] = new Array[Boolean](6)
+
   var popQuestions: LinkedList[String] = new LinkedList[String]
   var scienceQuestions: LinkedList[String] = new LinkedList[String]
   var sportsQuestions: LinkedList[String] = new LinkedList[String]
   var rockQuestions: LinkedList[String] = new LinkedList[String]
+
   var currentPlayer: Int = 0
   var isGettingOutOfPenaltyBox: Boolean = false
 
@@ -74,18 +84,18 @@ class Game {
   }
 
   private def askQuestion: Unit = {
-    if (currentCategory == "Pop") println(popQuestions.removeFirst)
-    if (currentCategory == "Science") println(scienceQuestions.removeFirst)
-    if (currentCategory == "Sports") println(sportsQuestions.removeFirst)
-    if (currentCategory == "Rock") println(rockQuestions.removeFirst)
+    if (currentCategory == Category.Pop) println(popQuestions.removeFirst)
+    if (currentCategory == Category.Science) println(scienceQuestions.removeFirst)
+    if (currentCategory == Category.Sports) println(sportsQuestions.removeFirst)
+    if (currentCategory == Category.Rock) println(rockQuestions.removeFirst)
   }
 
-  private def currentCategory: String = {
+  private def currentCategory: Category = {
     places(currentPlayer) match {
-      case 0 | 4 |  8 => "Pop"
-      case 1 | 5 |  9 => "Science"
-      case 2 | 6 | 10 => "Sports"
-      case _          => "Rock"
+      case 0 | 4 |  8 => Category.Pop
+      case 1 | 5 |  9 => Category.Science
+      case 2 | 6 | 10 => Category.Sports
+      case _          => Category.Rock
     }
   }
 
