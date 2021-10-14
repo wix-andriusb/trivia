@@ -43,4 +43,14 @@ class GameTest extends AnyFlatSpec with should.Matchers {
 
     run(0) should be (expected)
   }
+
+  "Game" should "be not playable with 1 or no player" in {
+    new Game(Seq.empty).isPlayable should be (false)
+    new Game(Seq("a")).isPlayable should be (false)
+  }
+
+  "Game" should "be not playable with 2 players and more" in {
+    new Game(Seq("a", "b")).isPlayable should be (true)
+    new Game(Seq("a", "b", "c")).isPlayable should be (true)
+  }
 }
