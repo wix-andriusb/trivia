@@ -15,10 +15,7 @@ class GameTest extends AnyFlatSpec with should.Matchers {
   def game(): Unit = {
     var notAWinner = false
 
-    var aGame = new Game()
-    aGame.add("Chet")
-    aGame.add("Pat")
-    aGame.add("Sue")
+    var aGame = new Game(Seq("Chet", "Pat", "Sue"))
 
     var rand: Random = new Random(0)
 

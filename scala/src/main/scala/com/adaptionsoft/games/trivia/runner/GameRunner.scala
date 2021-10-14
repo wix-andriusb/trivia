@@ -8,10 +8,8 @@ object GameRunner {
   var notAWinner = false
 
   def main(args: Array[String]) {
-    var aGame = new Game();
-    aGame.add("Chet")
-    aGame.add("Pat")
-    aGame.add("Sue")
+    val players = Seq("Chet", "Pat", "Sue")
+    var aGame = new Game(players)
 
     var rand: Random = new Random
 

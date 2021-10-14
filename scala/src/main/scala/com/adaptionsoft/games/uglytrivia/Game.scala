@@ -12,8 +12,7 @@ object Category {
   val All = Set(Pop, Science, Sports, Rock)
 }
 
-
-class Game {
+class Game(playerNames: Seq[String]) {
   var players: ArrayList[String] = new ArrayList[String]
   var places: Array[Int] = new Array[Int](6)
   var purses: Array[Int] = new Array[Int](6)
@@ -38,13 +37,17 @@ class Game {
 
   initialize()
 
+  playerNames.foreach { playerName =>
+    add(playerName)
+  }
+
   def println(o: Any): Unit = {
     System.out.println(s"$o")
   }
 
   def isPlayable: Boolean = (howManyPlayers >= 2)
 
-  def add(playerName: String): Boolean = {
+  private def add(playerName: String): Boolean = {
     players.add(playerName)
     places(howManyPlayers) = 0
     purses(howManyPlayers) = 0
