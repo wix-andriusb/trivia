@@ -8,6 +8,8 @@ object Category {
   case object Science extends Category
   case object Sports extends Category
   case object Rock extends Category
+
+  val All = Set(Pop, Science, Sports, Rock)
 }
 
 
@@ -17,10 +19,8 @@ class Game {
   var purses: Array[Int] = new Array[Int](6)
   var inPenaltyBox: Array[Boolean] = new Array[Boolean](6)
 
-  var popQuestions: LinkedList[String] = new LinkedList[String]
-  var scienceQuestions: LinkedList[String] = new LinkedList[String]
-  var sportsQuestions: LinkedList[String] = new LinkedList[String]
-  var rockQuestions: LinkedList[String] = new LinkedList[String]
+  val questions: Map[Category, LinkedList[String]] =
+    Category.All.map(category => category -> new LinkedList[String]).toMap
 
   var currentPlayer: Int = 0
   var isGettingOutOfPenaltyBox: Boolean = false
@@ -28,10 +28,10 @@ class Game {
   def initialize() {
     var i: Int = 0
     while (i < 50) {
-      popQuestions.addLast("Pop Question " + i)
-      scienceQuestions.addLast(("Science Question " + i))
-      sportsQuestions.addLast(("Sports Question " + i))
-      rockQuestions.addLast("Rock Question " + i)
+      questions(Category.Pop).addLast("Pop Question " + i)
+      questions(Category.Science).addLast(("Science Question " + i))
+      questions(Category.Sports).addLast(("Sports Question " + i))
+      questions(Category.Rock).addLast("Rock Question " + i)
       i += 1
     }
   }
@@ -84,12 +84,8 @@ class Game {
   }
 
   private def askQuestion: Unit = {
-    currentCategory match {
-      case Category.Pop     => println(popQuestions.removeFirst)
-      case Category.Science => println(scienceQuestions.removeFirst)
-      case Category.Sports  => println(sportsQuestions.removeFirst)
-      case Category.Rock    => println(rockQuestions.removeFirst)
-    }
+    val question = questions(currentCategory).removeFirst
+    println(question)
   }
 
   private def currentCategory: Category = {
