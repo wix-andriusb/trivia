@@ -84,10 +84,12 @@ class Game {
   }
 
   private def askQuestion: Unit = {
-    if (currentCategory == Category.Pop) println(popQuestions.removeFirst)
-    if (currentCategory == Category.Science) println(scienceQuestions.removeFirst)
-    if (currentCategory == Category.Sports) println(sportsQuestions.removeFirst)
-    if (currentCategory == Category.Rock) println(rockQuestions.removeFirst)
+    currentCategory match {
+      case Category.Pop     => println(popQuestions.removeFirst)
+      case Category.Science => println(scienceQuestions.removeFirst)
+      case Category.Sports  => println(sportsQuestions.removeFirst)
+      case Category.Rock    => println(rockQuestions.removeFirst)
+    }
   }
 
   private def currentCategory: Category = {
