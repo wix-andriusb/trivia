@@ -69,8 +69,8 @@ class Game(playerNames: Seq[String]) {
         println(players.get(currentPlayer) + " is getting out of the penalty box")
       }
       else {
-        println(players.get(currentPlayer) + " is not getting out of the penalty box")
         isGettingOutOfPenaltyBox = false
+        println(players.get(currentPlayer) + " is not getting out of the penalty box")
       }
     }
 
