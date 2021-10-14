@@ -63,9 +63,6 @@ class Game(playerNames: Seq[String]) {
     println(players.get(currentPlayer) + " is the current player")
     println("They have rolled a " + roll)
 
-    val getOutPrison = roll % 2 == 0
-    val free = if (inPenaltyBox(currentPlayer)) getOutPrison else true
-
     if (inPenaltyBox(currentPlayer)) {
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
