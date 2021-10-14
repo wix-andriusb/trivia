@@ -28,6 +28,10 @@ class Game {
 
   initialize()
 
+  def println(o: Any): Unit = {
+    System.out.println(s"$o")
+  }
+
   def createRockQuestion(index: Int): String = "Rock Question " + index
 
   def isPlayable: Boolean = (howManyPlayers >= 2)

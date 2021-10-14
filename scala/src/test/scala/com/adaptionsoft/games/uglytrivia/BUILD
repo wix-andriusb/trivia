@@ -4,6 +4,9 @@ package(default_visibility = ["//visibility:public"])
 scala_test(
     name = "uglytrivia",
     srcs = ["GameTest.scala"],
+    runtime_deps = [
+        "//src/test/resources"
+    ],
     deps = [
         "//src/main/scala/com/adaptionsoft/games/uglytrivia"
     ])
